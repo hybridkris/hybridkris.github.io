@@ -3,24 +3,19 @@
     "repo": "sihek-phylogenetics",
     "title": "The Moat",
     "blurb": "The sihek, or Guam kingfisher, is Extinct in the Wild. Plotting every kingfisher ND2 sequence in GenBank by its distance from this one bird reveals a ring 2.02 percentage points wide containing nothing at all. The chart inks the emptiness and leaves the data as dust.",
-    "meta": ["Phylogenetics", "156 sequences", "Conservation genomics"]
-  },
-  {
-    "repo": "Wu_v3",
-    "title": "Wu v3",
-    "blurb": "Embodied AI consciousness research on a Unitree Go2, with reviews anchored to Bitcoin and IPFS.",
-    "meta": ["Robotics", "Python"]
+    "meta": [
+      "Phylogenetics",
+      "156 sequences",
+      "Conservation genomics"
+    ]
   },
   {
     "repo": "caas-architecture",
     "title": "Consciousness as a Service",
     "blurb": "A reference architecture for CaaS.",
-    "meta": ["Architecture", "Reference"]
-  },
-  {
-    "repo": "EFSCR",
-    "title": "Epstein Files: Scientists and Consciousness Researchers",
-    "blurb": "An interactive relationship graph of the named scientists and consciousness researchers.",
-    "meta": ["Interactive graph"]
+    "meta": [
+      "Architecture",
+      "Reference"
+    ]
   }
 ]
