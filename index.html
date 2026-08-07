@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>krisrockwell.io &mdash; experiments</title>
+<meta name="description" content="Experiments and work in progress by Kris Rockwell.">
+<style>
+/* Shared design tokens for the sihek project pages.
+   Inlined at build time into both index.html and figures/moat.html so the
+   two pages cannot drift, and each stays self-contained (artifact CSP
+   blocks external stylesheets). */
+
+:root {
+    color-scheme: light;
+    --ground:      #eef1f3;
+    --plane:       #e5e9ec;
+    --ink:         #10161b;
+    --ink-2:       #46525c;
+    --ink-3:       #77848d;
+    --hair:        #d2d9dd;
+    --ring:        #c3ccd2;
+    --void:        rgba(16, 22, 27, 0.055);
+    --void-edge:   rgba(16, 22, 27, 0.16);
+    --moat:        rgba(166, 61, 2, 0.05);
+    --moat-edge:   rgba(166, 61, 2, 0.5);
+    --halcyon:     #5e82da;
+    --alcedo:      #0a8d83;
+    --ceryle:      #7c3b77;
+    --outgroup:    #6f7378;
+    --sihek:       #a63d02;
+    --chip:        rgba(238, 241, 243, 0.9);
+
+    /* Headings -- Univers Next Pro (Monotype, commercial). Fallbacks follow the
+       neo-grotesque line: earlier Univers releases, then Helvetica Neue. */
+    --display: "Univers Next Pro", "Univers LT Pro", "Univers LT Std",
+               Univers, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    /* Headings take the Heavy Condensed cut. Named explicitly first, in the
+       variants Monotype ships it under, so a single-style install is found;
+       the font-weight/font-stretch pair below picks the same cut when the full
+       family is installed instead. Falls through to --display. */
+    --display-heavy: "Univers Next Pro Heavy Cond", "UniversNextPro-HeavyCond",
+                     "Univers Next Pro Heavy Condensed", "Univers Next Pro Cond",
+                     "Univers LT Pro 67 Bold Condensed", "HelveticaNeue-CondensedBlack",
+                     var(--display);
+
+    /* Body -- Plantin (Monotype, commercial). Times was drawn with Plantin as its
+       model, so the Times line is a principled fallback rather than a lazy one;
+       PT Serif is listed first because its large x-height, modest contrast and
+       sturdy wedge serifs are closer to Plantin's colour on screen. */
+    --body: Plantin, "Plantin MT Pro", "Plantin MT Std", "Plantin Std",
+            "PT Serif", "Times New Roman", Times, serif;
+
+    /* Labels, numbers, code -- OCR B (Monotype, commercial). Nothing on a stock
+       system resembles it, so the fallback is simply the best available mono. */
+    --util: "OCR B", "OCR-B", "OCRB", "OCR B Std", "OCRB Medium",
+            ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --ground:    #0b1014;  --plane:     #070b0e;
+      --ink:       #eef3f6;  --ink-2:     #9dabb4;  --ink-3: #6d7a83;
+      --hair:      #1e262c;  --ring:      #2a343b;
+      --void:      rgba(238, 243, 246, 0.05);
+      --void-edge: rgba(238, 243, 246, 0.15);
+      --moat:      rgba(214, 96, 30, 0.07);
+      --moat-edge: rgba(214, 96, 30, 0.62);
+      --halcyon:   #5b7ed7;  --alcedo:    #32a398;
+      --ceryle:    #92508c;  --outgroup:  #8b9096;  --sihek: #b44200;
+      --chip:      rgba(11, 16, 20, 0.9);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground:    #0b1014;  --plane:     #070b0e;
+    --ink:       #eef3f6;  --ink-2:     #9dabb4;  --ink-3: #6d7a83;
+    --hair:      #1e262c;  --ring:      #2a343b;
+    --void:      rgba(238, 243, 246, 0.05);
+    --void-edge: rgba(238, 243, 246, 0.15);
+    --moat:      rgba(214, 96, 30, 0.07);
+    --moat-edge: rgba(214, 96, 30, 0.62);
+    --halcyon:   #5b7ed7;  --alcedo:    #32a398;
+    --ceryle:    #92508c;  --outgroup:  #8b9096;  --sihek: #b44200;
+    --chip:      rgba(11, 16, 20, 0.9);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--plane); color: var(--ink);
+    font-family: var(--body); font-size: 17px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: clamp(26px, 5vw, 68px) clamp(18px, 4vw, 44px) 90px; }
+
+  header { display: flex; flex-direction: column; gap: 17px; margin-bottom: clamp(28px, 5vw, 52px); }
+  .eyebrow {
+    font-family: var(--util); font-size: 11.5px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-3); margin: 0;
+  }
+  h1 {
+    font-family: var(--display-heavy); font-weight: 800; font-stretch: condensed;
+    font-size: clamp(33px, 5.6vw, 60px); line-height: 1.02;
+    letter-spacing: -0.015em; margin: 0; text-wrap: balance;
+  }
+  h1 em { font-style: italic; color: var(--sihek); }
+  .standfirst { max-width: 62ch; margin: 0; font-size: clamp(17px, 2vw, 20px); color: var(--ink-2); }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px; background: var(--hair); border: 1px solid var(--hair); margin: 24px 0 0;
+  }
+  .stat { background: var(--ground); padding: 15px 16px; }
+  .stat .v { font-family: var(--display); font-size: 27px; font-weight: 500; letter-spacing: -0.015em; line-height: 1.1; }
+  .stat .v .u { font-size: 14px; color: var(--ink-3); font-weight: 400; }
+  .stat .k {
+    font-family: var(--util); font-size: 10.5px; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--ink-3); margin-top: 6px;
+  }
+
+  .grid2 {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: clamp(20px, 3vw, 40px); margin-top: clamp(36px, 5vw, 58px);
+  }
+  h2 {
+    font-family: var(--util); font-size: 11.5px; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px;
+    padding-bottom: 9px; border-bottom: 1px solid var(--hair);
+  }
+  section p { margin: 0 0 13px; font-size: 15.5px; color: var(--ink-2); }
+  section p:last-child { margin-bottom: 0; }
+  em.tx { font-style: italic; }
+  strong { font-weight: 600; color: var(--ink); }
+
+  footer { margin-top: clamp(38px, 6vw, 66px); padding-top: 20px; border-top: 1px solid var(--hair); }
+  footer p {
+    font-family: var(--util); font-size: 11.5px; line-height: 1.75;
+    color: var(--ink-3); margin: 0 0 9px; max-width: 90ch;
+  }
+  footer p:last-child { margin-bottom: 0; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+
+  /* ---- hub-only layout, built on the shared tokens above ------------------ */
+  a { color: inherit; }
+
+  .entries { border-top: 1px solid var(--hair); margin-top: clamp(28px, 4vw, 44px); }
+  .entry {
+    display: block; text-decoration: none; padding: clamp(18px, 2.6vw, 26px) 0;
+    border-bottom: 1px solid var(--hair);
+    display: grid; grid-template-columns: 1fr auto; gap: 6px clamp(20px, 4vw, 48px);
+    align-items: baseline; transition: background .15s;
+  }
+  .entry:hover, .entry:focus-visible {
+    background: var(--ground); outline: none;
+    box-shadow: -14px 0 0 var(--ground), 14px 0 0 var(--ground);
+  }
+  .entry h2 {
+    font-family: var(--display-heavy); font-weight: 800; font-stretch: condensed;
+    font-size: clamp(21px, 2.8vw, 29px); line-height: 1.1; letter-spacing: -0.01em;
+    text-transform: none; color: var(--ink); margin: 0; padding: 0; border: 0;
+    grid-column: 1; align-self: center;
+  }
+  .entry:hover h2 { color: var(--sihek); }
+  .entry .path {
+    grid-column: 2; grid-row: 1; font-family: var(--util); font-size: 11.5px;
+    color: var(--ink-3); letter-spacing: 0.04em; white-space: nowrap;
+  }
+  .entry p {
+    grid-column: 1 / -1; margin: 4px 0 0; font-size: 15.5px;
+    color: var(--ink-2); max-width: 74ch;
+  }
+  .entry .meta {
+    grid-column: 1 / -1; margin-top: 9px; font-family: var(--util);
+    font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .entry .meta .dot { color: var(--ring); margin: 0 7px; }
+
+  .note {
+    margin-top: clamp(30px, 4vw, 46px); padding: clamp(16px, 2.4vw, 22px);
+    background: var(--ground); border: 1px solid var(--hair); border-radius: 3px;
+  }
+  .note p { margin: 0; font-size: 14.5px; color: var(--ink-2); max-width: 76ch; }
+  .note p + p { margin-top: 9px; }
+  code { font-family: var(--util); font-size: 12.5px; color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">krisrockwell.io</p>
+    <h1>Experiments, and what they turned up.</h1>
+    <p class="standfirst">
+      Work in progress, published as it happens. Each entry is its own repository,
+      served from this domain. Some are finished; most are not.
+    </p>
+  </header>
+
+  <div class="entries"><a class="entry" href="/sihek-phylogenetics/"><h2>The Moat</h2><span class="path">/sihek-phylogenetics/</span><p>The sihek, or Guam kingfisher, is Extinct in the Wild. Plotting every kingfisher ND2 sequence in GenBank by its distance from this one bird reveals a ring 2.02 percentage points wide containing nothing at all. The chart inks the emptiness and leaves the data as dust.</p><span class="meta">Phylogenetics <span class="dot">&middot;</span> 156 sequences <span class="dot">&middot;</span> Conservation genomics</span></a>
+<a class="entry" href="/Wu_v3/"><h2>Wu v3</h2><span class="path">/Wu_v3/</span><p>Embodied AI consciousness research on a Unitree Go2, with reviews anchored to Bitcoin and IPFS.</p><span class="meta">Robotics <span class="dot">&middot;</span> Python</span></a>
+<a class="entry" href="/caas-architecture/"><h2>Consciousness as a Service</h2><span class="path">/caas-architecture/</span><p>A reference architecture for CaaS.</p><span class="meta">Architecture <span class="dot">&middot;</span> Reference</span></a>
+<a class="entry" href="/EFSCR/"><h2>Epstein Files: Scientists and Consciousness Researchers</h2><span class="path">/EFSCR/</span><p>An interactive relationship graph of the named scientists and consciousness researchers.</p><span class="meta">Interactive graph</span></a></div>
+
+  <div class="note">
+    <p>
+      Every experiment lives in a separate repository and is published as a project
+      site beneath this one, so its URL is simply <code>krisrockwell.io/&lt;repo&gt;/</code>.
+      Adding one means enabling Pages on that repository and listing it here &mdash;
+      no DNS record, no certificate, no new domain.
+    </p>
+    <p>
+      Work that earns its own identity gets a subdomain instead, the way
+      <code>cfp.krisrockwell.org</code> and <code>conscientia.krisrockwell.org</code> do.
+      That is a deliberate promotion, not the default.
+    </p>
+  </div>
+
+  <footer>
+    <p>
+      Built from a shared token file &mdash; Univers Next Pro Heavy Condensed for
+      headings, Plantin for running text, OCR B for labels and figures &mdash; so the
+      experiments read as one body of work rather than a pile of unrelated pages.
+    </p>
+    <p>
+      Separately: <a href="https://krisrockwell.org/">krisrockwell.org</a> &middot;
+      <a href="https://www.praxisscience.com/">praxisscience.com</a>
+    </p>
+  </footer>
+</div>
+</body>
+</html>
