@@ -19,12 +19,13 @@
     ]
   },
   {
-    "repo": "neuromancer-semiotics",
-    "title": "The Wrong Kind of Sign",
-    "blurb": "Gibson's Neuromancer coded line by line against Peirce's theory of the sign. Five machines in the book hold fluent conversation and every one of them is ignored; 217 coded passages say why. Fluency reads as resemblance, never as cause, and resemblance licenses no inference to a mind. A blind second coder then refuted the author.",
+    "repo": "neuromancer",
+    "title": "Neuromancer, Twice",
+    "blurb": "Gibson's novel coded line by line against two incompatible theories of the sign. Peirce's triadic instrument asks what kind of sign has to arrive before a reader grants a machine a mind, and finds that fluency is the wrong kind. Saussure's dyadic one asks what system of differences makes a conscious machine sayable at all. Two studies, two repositories, one novel.",
     "meta": [
       "Semiotics",
-      "217 coded passages",
+      "Peirce and Saussure",
+      "217 + 287 coded spans",
       "ATLAS.ti"
     ]
   }
