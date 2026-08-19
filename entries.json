@@ -17,5 +17,15 @@
       "Architecture",
       "Reference"
     ]
+  },
+  {
+    "repo": "neuromancer-semiotics",
+    "title": "The Wrong Kind of Sign",
+    "blurb": "Gibson's Neuromancer coded line by line against Peirce's theory of the sign. Five machines in the book hold fluent conversation and every one of them is ignored; 217 coded passages say why. Fluency reads as resemblance, never as cause, and resemblance licenses no inference to a mind. A blind second coder then refuted the author.",
+    "meta": [
+      "Semiotics",
+      "217 coded passages",
+      "ATLAS.ti"
+    ]
   }
 ]
