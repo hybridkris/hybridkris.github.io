@@ -40,3 +40,9 @@ across repositories; keep the copies in step when changing either.
 A Pages site built from a **private** repository is still served **publicly**. Decide
 visibility per experiment deliberately — publishing here puts the repo contents on the
 open web regardless of the repo's own setting.
+
+## Analytics
+
+These pages carry the Google Analytics (GA4) tag `G-48RJDXZTPJ`. It is the one
+external request they make, and the one thing here not served from this repo.
+Everything else -- CSS, fonts, figures -- is still inlined.
